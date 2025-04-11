@@ -1,0 +1,20 @@
+provider "aws" {
+  region = "ap-south-1"
+}
+
+# S3 Bucket Resource
+resource "aws_s3_bucket" "example_bucket" {
+  bucket        = "meri-aws-bucket"
+  force_destroy = true
+}
+
+# EC2 Instance Resource
+resource "aws_instance" "example_instance" {
+  ami           = "ami-0cda377a1b884a1bc" # Amazon Linux 2 AMI (HVM), SSD Volume Type in ap-south-1
+  instance_type = "t3.micro"              # Compatible with the ap-south-1c zone
+  subnet_id     = "subnet-04b10b15d4e7b02fe" # Ensure this is in ap-south-1c
+
+  tags = {
+    Name = "Terraform-Example-Instance"
+  }
+}
